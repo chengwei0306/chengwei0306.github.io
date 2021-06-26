@@ -33,7 +33,7 @@
           </transition-group>
 
           <form action="" onsubmit="c()">
-            <input type="text" id=check value="${{ scan.content }}">
+            <input type="text" id=check v-for="scan in scans" :key="scan.date" :title="scan.content" value="${{ scan.content }}">
             <input type="submit">
           </form>
 
