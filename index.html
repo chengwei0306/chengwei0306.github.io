@@ -29,11 +29,11 @@
             <li class="empty">No scans yet</li>
           </ul>
           <transition-group name="scans" tag="ul">
-            <li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
+            <li v-for="scan in scans" :key="scan.date" :title="scan.content" id="value">{{ scan.content }}</li>
           </transition-group>
 
           <form action="" onsubmit="c()">
-            <input type="text" id=check v-for="scan in scans" :key="scan.date" :title="scan.content" value="${{ scan.content }}">
+            <input type="text" id=check value="">
             <input type="submit">
           </form>
 
@@ -47,7 +47,11 @@
   </body>
   <script>
     function c(){
+    var g= scan.content
+    var a = document.getElementById("value").Val
     var i = document.getElementById("check").Val
+    alert(a)
+    alert(g)
     alert(i)
     }
   </script>
