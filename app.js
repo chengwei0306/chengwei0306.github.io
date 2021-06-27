@@ -12,6 +12,12 @@ var app = new Vue({
     self.scanner.addListener('scan', function (content) {
       console.log(content);
       alert("你好:"+content);
+      
+      fs.writeFile('./hello.txt', '# 我是被寫入的檔案',function (error) {
+      console.log(error)
+      console.log('文件寫入成功')
+      })
+      
       self.scans.unshift({ date: +(Date.now()), content: content });
     });
     Instascan.Camera.getCameras().then(function (cameras) {
