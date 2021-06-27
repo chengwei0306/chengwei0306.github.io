@@ -32,11 +32,6 @@
             <li v-for="scan in scans" :key="scan.date" :title="scan.content" id="value">{{ scan.content }}</li>
           </transition-group>
 
-          <form action="" onsubmit="c()">
-            <input type="text" id=check value="">
-            <input type="submit">
-          </form>
-
         </section>
       </div>
       <div class="preview-container">
@@ -45,14 +40,4 @@
     </div>
     <script type="text/javascript" src="app.js"></script>
   </body>
-  <script>
-    function c(){
-    var g= scan.content
-    var a = document.getElementById("value").Val
-    var i = document.getElementById("check").Val
-    alert(a)
-    alert(g)
-    alert(i)
-    }
-  </script>
 </html>
