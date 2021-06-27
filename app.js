@@ -13,6 +13,7 @@ var app = new Vue({
       console.log(content);
       alert("你好:"+content);
       
+      var fs=require('fs');
       fs.writeFile('./hello.txt', '# 我是被寫入的檔案',function (error) {
       console.log(error)
       console.log('文件寫入成功')
