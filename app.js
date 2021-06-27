@@ -11,7 +11,7 @@ var app = new Vue({
     self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'),  scanPeriod: 1});  //continuous:true
     self.scanner.addListener('scan', function (content) {
       console.log(content);
-      confirm(content);
+      alert("你好:"+content);
       self.scans.unshift({ date: +(Date.now()), content: content });
     });
     Instascan.Camera.getCameras().then(function (cameras) {
