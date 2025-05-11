@@ -39,6 +39,14 @@
       font-size: 1rem;
       color: #666;
     }
+    .now-time {
+      font-size: 1.5rem;
+      color: #333;
+      background: #fff;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -89,14 +97,23 @@
     </div>
   </div>
 
+  <!-- 現在時間 -->
+  <div class="now-time" id="nowTime">
+    現在時間：--
+  </div>
+
   <script>
-    const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月是 index 4
-    const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月是 index 5
+    const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月
+    const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月
+
+    function pad(num) {
+      return num < 10 ? '0' + num : num;
+    }
 
     function updateCountdowns() {
       const now = new Date();
 
-      // 更新會考
+      // 更新會考倒數
       let diff = examDate - now;
       if (diff <= 0) {
         document.getElementById("examCountdown").innerHTML = "<h2>會考開始！</h2>";
@@ -107,7 +124,7 @@
         document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
       }
 
-      // 更新畢業
+      // 更新畢業倒數
       diff = gradDate - now;
       if (diff <= 0) {
         document.getElementById("gradCountdown").innerHTML = "<h2>畢業快樂！🎓</h2>";
@@ -117,10 +134,14 @@
         document.getElementById("gminutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
         document.getElementById("gseconds").textContent = Math.floor((diff / 1000) % 60);
       }
+
+      // 更新現在時間
+      const nowStr = `現在時間：${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById("nowTime").textContent = nowStr;
     }
 
-    updateCountdowns(); // 初始化顯示
-    setInterval(updateCountdowns, 1000); // 每秒更新
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
   </script>
 
 </body>
