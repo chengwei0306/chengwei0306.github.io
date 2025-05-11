@@ -62,6 +62,14 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+    .btn {
+      font-size: 1.5rem;
+      color: #333;
+      background: #fff;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -108,7 +116,7 @@
   <!-- 顯示訊息與重新輸入按鈕 -->
   <div id="messageSection" style="display: none; margin-top: 1rem; text-align: center;">
 <!--     <div id="userMessage" style="font-size: 1.25rem; color: #333; margin-bottom: 1rem;"></div> -->
-    <button id="userMessage" onclick="resetInput()" style="padding: 0.5rem 1rem; font-size: 20rem;"></button>
+    <button id="userMessage" class="btn" onclick="resetInput()" style="padding: 0.5rem 1rem; font-size: 20rem;"></button>
   </div>
   <script>
     const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月17日 08:20
