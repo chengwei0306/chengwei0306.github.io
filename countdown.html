@@ -8,12 +8,21 @@
       font-family: "Segoe UI", sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       min-height: 100vh;
       background-color: #f0f0f0;
+      padding: 2rem;
       gap: 2rem;
     }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .countdown {
       text-align: center;
       font-size: 2rem;
@@ -21,24 +30,30 @@
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      min-width: 300px;
     }
+
     .time {
       display: flex;
       gap: 1.5rem;
       justify-content: center;
       margin-top: 1rem;
     }
+
     .unit {
       text-align: center;
     }
+
     .number {
       font-size: 3rem;
       color: #333;
     }
+
     .label {
       font-size: 1rem;
       color: #666;
     }
+
     .now-time {
       font-size: 1.5rem;
       color: #333;
@@ -51,60 +66,37 @@
 </head>
 <body>
 
-  <!-- 會考倒數 -->
-  <div class="countdown" id="examCountdown">
-    <h2>距離會考還有：</h2>
-    <div class="time">
-      <div class="unit">
-        <div class="number" id="days">0</div>
-        <div class="label">天</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="hours">0</div>
-        <div class="label">時</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="minutes">0</div>
-        <div class="label">分</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="seconds">0</div>
-        <div class="label">秒</div>
+  <!-- 倒數區塊容器 -->
+  <div class="container">
+    <!-- 會考倒數 -->
+    <div class="countdown" id="examCountdown">
+      <h2>距離會考還有：</h2>
+      <div class="time">
+        <div class="unit"><div class="number" id="days">0</div><div class="label">天</div></div>
+        <div class="unit"><div class="number" id="hours">0</div><div class="label">時</div></div>
+        <div class="unit"><div class="number" id="minutes">0</div><div class="label">分</div></div>
+        <div class="unit"><div class="number" id="seconds">0</div><div class="label">秒</div></div>
       </div>
     </div>
-  </div>
 
-  <!-- 畢業倒數 -->
-  <div class="countdown" id="gradCountdown">
-    <h2>距離畢業還有：</h2>
-    <div class="time">
-      <div class="unit">
-        <div class="number" id="gdays">0</div>
-        <div class="label">天</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="ghours">0</div>
-        <div class="label">時</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="gminutes">0</div>
-        <div class="label">分</div>
-      </div>
-      <div class="unit">
-        <div class="number" id="gseconds">0</div>
-        <div class="label">秒</div>
+    <!-- 畢業倒數 -->
+    <div class="countdown" id="gradCountdown">
+      <h2>距離畢業還有：</h2>
+      <div class="time">
+        <div class="unit"><div class="number" id="gdays">0</div><div class="label">天</div></div>
+        <div class="unit"><div class="number" id="ghours">0</div><div class="label">時</div></div>
+        <div class="unit"><div class="number" id="gminutes">0</div><div class="label">分</div></div>
+        <div class="unit"><div class="number" id="gseconds">0</div><div class="label">秒</div></div>
       </div>
     </div>
   </div>
 
   <!-- 現在時間 -->
-  <div class="now-time" id="nowTime">
-    現在時間：--
-  </div>
+  <div class="now-time" id="nowTime">現在時間：--</div>
 
   <script>
-    const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月
-    const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月
+    const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月17日 08:20
+    const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月11日 08:20
 
     function pad(num) {
       return num < 10 ? '0' + num : num;
@@ -113,29 +105,20 @@
     function updateCountdowns() {
       const now = new Date();
 
-      // 更新會考倒數
-      let diff = examDate - now;
-      if (diff <= 0) {
-        document.getElementById("examCountdown").innerHTML = "<h2>會考開始！</h2>";
-      } else {
-        document.getElementById("days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        document.getElementById("minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
-        document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
+      function updateBlock(diff, prefix) {
+        if (diff <= 0) {
+          document.getElementById(prefix + "Countdown").innerHTML = "<h2>倒數結束！</h2>";
+          return;
+        }
+        document.getElementById(prefix + "days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById(prefix + "hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById(prefix + "minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
+        document.getElementById(prefix + "seconds").textContent = Math.floor((diff / 1000) % 60);
       }
 
-      // 更新畢業倒數
-      diff = gradDate - now;
-      if (diff <= 0) {
-        document.getElementById("gradCountdown").innerHTML = "<h2>畢業快樂！🎓</h2>";
-      } else {
-        document.getElementById("gdays").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("ghours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        document.getElementById("gminutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
-        document.getElementById("gseconds").textContent = Math.floor((diff / 1000) % 60);
-      }
+      updateBlock(examDate - now, "");
+      updateBlock(gradDate - now, "g");
 
-      // 更新現在時間
       const nowStr = `現在時間：${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
       document.getElementById("nowTime").textContent = nowStr;
     }
