@@ -2,15 +2,17 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>倒數計時器</title>
+  <title>會考與畢業倒數計時</title>
   <style>
     body {
       font-family: "Segoe UI", sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #f0f0f0;
+      gap: 2rem;
     }
     .countdown {
       text-align: center;
@@ -24,6 +26,7 @@
       display: flex;
       gap: 1.5rem;
       justify-content: center;
+      margin-top: 1rem;
     }
     .unit {
       text-align: center;
@@ -39,7 +42,9 @@
   </style>
 </head>
 <body>
-  <div class="countdown">
+
+  <!-- 會考倒數 -->
+  <div class="countdown" id="examCountdown">
     <h2>距離會考還有：</h2>
     <div class="time">
       <div class="unit">
@@ -60,7 +65,9 @@
       </div>
     </div>
   </div>
-    <div class="countdown">
+
+  <!-- 畢業倒數 -->
+  <div class="countdown" id="gradCountdown">
     <h2>距離畢業還有：</h2>
     <div class="time">
       <div class="unit">
@@ -79,65 +86,56 @@
         <div class="number" id="gseconds">0</div>
         <div class="label">秒</div>
       </div>
-      <div class="unit">
-        <div class="number" id="now">0</div>
-      </div>
     </div>
   </div>
 
   <script>
-    // 設定目標時間（年, 月 - 1, 日, 時, 分, 秒）
-    const targetDate = new Date(2025, 4, 17, 8, 20, 0); // 2025年6月1日 00:00:00
-
-    function updateCountdown() {
+    // 會考倒數目標：2025/5/17 08:20
+    const examDate = new Date(2025, 4, 17, 8, 20, 0);
+    function updateExamCountdown() {
       const now = new Date();
-      const diff = targetDate - now;
-
+      const diff = examDate - now;
       if (diff <= 0) {
-        document.querySelector(".countdown").innerHTML = "<h2>倒數結束！</h2>";
-        clearInterval(timer);
+        document.getElementById("examCountdown").innerHTML = "<h2>會考開始！加油！</h2>";
+        clearInterval(examTimer);
         return;
       }
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       document.getElementById("days").textContent = days;
       document.getElementById("hours").textContent = hours;
       document.getElementById("minutes").textContent = minutes;
       document.getElementById("seconds").textContent = seconds;
-      document.getElementById("now").textContent = now;
     }
 
-    //Guaduate
-    // 設定目標時間（年, 月 - 1, 日, 時, 分, 秒）
-    const targetDate = new Date(2025, 5, 11, 8, 20, 0); // 2025年6月1日 00:00:00
-
-    function updateCountdown() {
+    // 畢業倒數目標：2025/6/11 08:20
+    const gradDate = new Date(2025, 5, 11, 8, 20, 0);
+    function updateGradCountdown() {
       const now = new Date();
-      const diff = targetDate - now;
-
+      const diff = gradDate - now;
       if (diff <= 0) {
-        document.querySelector(".countdown").innerHTML = "<h2>倒數結束！</h2>";
-        clearInterval(timer);
+        document.getElementById("gradCountdown").innerHTML = "<h2>畢業快樂！🎓</h2>";
+        clearInterval(gradTimer);
         return;
       }
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       document.getElementById("gdays").textContent = days;
       document.getElementById("ghours").textContent = hours;
       document.getElementById("gminutes").textContent = minutes;
       document.getElementById("gseconds").textContent = seconds;
     }
 
-    updateCountdown(); // 初始化
-    const timer = setInterval(updateCountdown, 1000); // 每秒更新
+    // 初始化與定時更新
+    updateExamCountdown();
+    updateGradCountdown();
+    const examTimer = setInterval(updateExamCountdown, 1000);
+    const gradTimer = setInterval(updateGradCountdown, 1000);
   </script>
+
 </body>
 </html>
