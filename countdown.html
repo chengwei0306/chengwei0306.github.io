@@ -100,6 +100,16 @@
   <!-- 現在時間 -->
   <div class="now-time" id="nowTime">現在時間：--</div>
 
+  <!-- 使用者輸入區 -->
+  <div id="inputSection" style="margin-top: 2rem; text-align: center;">
+    <input type="text" id="userInput" placeholder="請輸入想說的話" style="padding: 0.5rem; font-size: 1rem; width: 250px;">
+    <button onclick="showMessage()" style="padding: 0.5rem 1rem; font-size: 1rem;">顯示</button>
+  </div>
+  <!-- 顯示訊息與重新輸入按鈕 -->
+  <div id="messageSection" style="display: none; margin-top: 1rem; text-align: center;">
+    <div id="userMessage" style="font-size: 1.25rem; color: #333; margin-bottom: 1rem;"></div>
+    <button onclick="resetInput()" style="padding: 0.5rem 1rem; font-size: 1rem;">重新輸入</button>
+  </div>
   <script>
     const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月17日 08:20
     const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月11日 08:20
@@ -131,6 +141,21 @@
 
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
+    //輸入的部分
+    function showMessage() {
+      const input = document.getElementById("userInput").value;
+      if (input.trim() !== "") {
+        document.getElementById("userMessage").textContent = input;
+        document.getElementById("inputSection").style.display = "none";
+        document.getElementById("messageSection").style.display = "block";
+      }
+    }
+    
+    function resetInput() {
+      document.getElementById("userInput").value = "";
+      document.getElementById("inputSection").style.display = "block";
+      document.getElementById("messageSection").style.display = "none";
+    }
   </script>
 
 </body>
