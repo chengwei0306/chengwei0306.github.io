@@ -58,6 +58,10 @@
         <div class="number" id="seconds">0</div>
         <div class="label">秒</div>
       </div>
+      <div class="unit">
+        <div class="number" id="now">0</div>
+        <div class="label">秒</div>
+      </div>
     </div>
   </div>
 
@@ -84,6 +88,7 @@
       document.getElementById("hours").textContent = hours;
       document.getElementById("minutes").textContent = minutes;
       document.getElementById("seconds").textContent = seconds;
+      document.getElementById("now").textContent = now;
     }
 
     updateCountdown(); // 初始化
