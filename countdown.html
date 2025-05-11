@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>會考與畢業倒數計時</title>
+  <title>倒數計時器</title>
   <style>
     body {
       font-family: "Segoe UI", sans-serif;
@@ -90,51 +90,37 @@
   </div>
 
   <script>
-    // 會考倒數目標：2025/5/17 08:20
-    const examDate = new Date(2025, 4, 17, 8, 20, 0);
-    function updateExamCountdown() {
-      const now = new Date();
-      const diff = examDate - now;
-      if (diff <= 0) {
-        document.getElementById("examCountdown").innerHTML = "<h2>會考開始！加油！</h2>";
-        clearInterval(examTimer);
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
-    }
+    const examDate = new Date(2025, 4, 17, 8, 20, 0); // 5月是 index 4
+    const gradDate = new Date(2025, 5, 11, 8, 20, 0); // 6月是 index 5
 
-    // 畢業倒數目標：2025/6/11 08:20
-    const gradDate = new Date(2025, 5, 11, 8, 20, 0);
-    function updateGradCountdown() {
+    function updateCountdowns() {
       const now = new Date();
-      const diff = gradDate - now;
+
+      // 更新會考
+      let diff = examDate - now;
+      if (diff <= 0) {
+        document.getElementById("examCountdown").innerHTML = "<h2>會考開始！</h2>";
+      } else {
+        document.getElementById("days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById("minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
+        document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
+      }
+
+      // 更新畢業
+      diff = gradDate - now;
       if (diff <= 0) {
         document.getElementById("gradCountdown").innerHTML = "<h2>畢業快樂！🎓</h2>";
-        clearInterval(gradTimer);
-        return;
+      } else {
+        document.getElementById("gdays").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("ghours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById("gminutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
+        document.getElementById("gseconds").textContent = Math.floor((diff / 1000) % 60);
       }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("gdays").textContent = days;
-      document.getElementById("ghours").textContent = hours;
-      document.getElementById("gminutes").textContent = minutes;
-      document.getElementById("gseconds").textContent = seconds;
     }
 
-    // 初始化與定時更新
-    updateExamCountdown();
-    updateGradCountdown();
-    const examTimer = setInterval(updateExamCountdown, 1000);
-    const gradTimer = setInterval(updateGradCountdown, 1000);
+    updateCountdowns(); // 初始化顯示
+    setInterval(updateCountdowns, 1000); // 每秒更新
   </script>
 
 </body>
